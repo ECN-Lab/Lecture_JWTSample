@@ -1,0 +1,12 @@
+
+jwt:
+  signing-key: ecn.ntsphere@2019=!
+  expirationTime: 86400       # Seconds, 1 Day
+
+  #  List of URIs to be checked for tokens
+  token-require-uri:
+    - /*
+  
+  #  Token List of Exception URIs
+  token-ignore-uri:
+    - /method2
