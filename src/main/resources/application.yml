@@ -9,4 +9,5 @@ jwt:
   
   #  Token List of Exception URIs
   token-ignore-uri:
-    - /method2
+    - /generate
+    - /method1

@@ -40,9 +40,8 @@ public class JwtFilter extends GenericFilterBean {
         //  URI Filtering
         String requestUri = httpServletRequest.getRequestURI().toLowerCase();
         if (isTokenRequiresUri(requestUri) == true) {
-
            
-    		//  Get JWT
+    		//  Get JWT from header
     		String authHeader = httpServletRequest.getHeader("Authorization");
             if (authHeader == null || authHeader.startsWith("Bearer ") == false) {
             	httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");

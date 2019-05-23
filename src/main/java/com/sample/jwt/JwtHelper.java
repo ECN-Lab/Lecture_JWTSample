@@ -34,6 +34,11 @@ public class JwtHelper {
 	
 	
 	
+	public static JwtHelper factory() {
+		return new JwtHelper();
+	}
+	
+	
 	public static Boolean validation(String jwt) {
     	try {
     		Jwts.parser()
@@ -129,7 +134,7 @@ public class JwtHelper {
     
     public String build() {
     	//  Add claims to header
-        for (Entry<String, Object> entry : payloadClaims.entrySet()) {
+        for (Entry<String, Object> entry : headerClaims.entrySet()) {
         	jwtBuilder.setHeaderParam(entry.getKey(), entry.getValue());
         }
         
