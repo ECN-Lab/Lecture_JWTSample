@@ -21,8 +21,6 @@ import lombok.Getter;
 
 @Component
 public class JwtHelper {
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	//  static members
 	private static JwtProperty jwtProperty;
 	
 	@Autowired(required=true) 
@@ -33,7 +31,9 @@ public class JwtHelper {
 	
 	
 	
-	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	//  static members
 	public static JwtHelper factory() {
 		return new JwtHelper();
 	}

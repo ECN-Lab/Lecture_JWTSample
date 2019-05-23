@@ -17,11 +17,7 @@ import org.springframework.web.filter.GenericFilterBean;
 @Component
 public class JwtFilter extends GenericFilterBean {
 	private static JwtProperty jwtProperties;
-    
-    
-    
-    
-    
+	
 	@Autowired(required=true) 
 	public void setSecurity(JwtProperty prop) {
 		jwtProperties = prop;
@@ -30,6 +26,7 @@ public class JwtFilter extends GenericFilterBean {
     
     
     
+	
 	@Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
