@@ -20,11 +20,12 @@ public class HomeController {
 	@RequestMapping(value="/generate", method=RequestMethod.GET)
 	public String generate() {
 		
-		String jwt = JwtHelper.factory()
+		String jwt = JwtHelper.create()
 								.setSubject("JWT Sample")
-								.setExpirationDate(System.currentTimeMillis() + (jwtProperty.getExpirationTime() * 1000))
+								.setExpiration(System.currentTimeMillis() + (jwtProperty.getExpirationTime() * 1000))
 								.addClaim("name", "DongHoon")
 								.addClaim("city", "Seoul")
+								.addClaim("company", "NTSphere")
 								.build();
 		return jwt;
 	}

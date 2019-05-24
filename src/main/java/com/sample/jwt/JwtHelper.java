@@ -16,7 +16,6 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
-
 import lombok.Getter;
 
 @Component
@@ -34,7 +33,7 @@ public class JwtHelper {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//  static members
-	public static JwtHelper factory() {
+	public static JwtHelper create() {
 		return new JwtHelper();
 	}
 	
@@ -71,15 +70,13 @@ public class JwtHelper {
 	//  members
     private HashMap<String, Object> headerClaims = new HashMap<String, Object>();
     private HashMap<String, Object> payloadClaims = new HashMap<String, Object>();
-    @Getter private JwtBuilder jwtBuilder = Jwts.builder();
-    
+    @Getter private JwtBuilder builder = Jwts.builder();
     
     
     
     
     public JwtHelper() {
-    	jwtBuilder.setIssuedAt(new Date());
-    	
+    	builder.setIssuedAt(new Date());
     	addHeaderClaim("typ", "JWT");
     }
     
@@ -96,19 +93,25 @@ public class JwtHelper {
     }
     
     
+    public JwtHelper setIssuer(String iss) {
+    	builder.setIssuer(iss);
+    	return this;
+    }
+    
+    
     public JwtHelper setAudience(String aud) {
-    	jwtBuilder.setAudience(aud);
+    	builder.setAudience(aud);
     	return this;
     }
     
     
     public JwtHelper setSubject(String sub) {
-    	jwtBuilder.setSubject(sub);
+    	builder.setSubject(sub);
     	return this;
     }
     
     
-    public JwtHelper setExpirationDate(Long expiration) {
+    public JwtHelper setExpiration(Long expiration) {
     	Date exp;
     	if (expiration == null)
     		exp = new Date(System.currentTimeMillis() + (jwtProperty.getExpirationTime() * 1000));
@@ -116,7 +119,7 @@ public class JwtHelper {
     		exp = new Date(expiration);
         
         
-        jwtBuilder.setExpiration(exp);
+    	builder.setExpiration(exp);
     	return this;
     }
     
@@ -135,17 +138,17 @@ public class JwtHelper {
     public String build() {
     	//  Add claims to header
         for (Entry<String, Object> entry : headerClaims.entrySet()) {
-        	jwtBuilder.setHeaderParam(entry.getKey(), entry.getValue());
+        	builder.setHeaderParam(entry.getKey(), entry.getValue());
         }
         
         
     	//  Add claims to payload
         for (Entry<String, Object> entry : payloadClaims.entrySet()) {
-        	jwtBuilder.claim(entry.getKey(), entry.getValue());
+        	builder.claim(entry.getKey(), entry.getValue());
         }
         
-        String jwt = jwtBuilder.signWith(SignatureAlgorithm.HS512, jwtProperty.getSigningKey())
-        						.compact();
+        String jwt = builder.signWith(SignatureAlgorithm.HS512, jwtProperty.getSigningKey())
+        					.compact();
     	
     	return jwt;
     }
